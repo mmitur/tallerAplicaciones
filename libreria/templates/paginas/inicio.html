@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %} 
+
+    <div class="container bg-light">
+        {% for atenciones in inicio %}
+        <div class="row" >
+            <div class="col-2" >
+                <p>Atencion: {{atenciones.idAtencion.}}</p>  
+                <p>Sala: {{atenciones.sala}}</p>  
+                <p>Hora: {{atenciones.hora}}</p>
+                <p>Fecha: {{atenciones.fechaAtencion}}</p>
+            </div>
+            <div class="col-3" >
+                <h5>Doctor</h5>
+                <p>{{atenciones.rutMedico}}</p>
+                <h5>Paciente</h5>
+                <p>{{atenciones.rutPaciente}}</p>
+            </div>
+            <div class="col-3">
+                <h5>Diagnostico</h5>
+                <p>{{atenciones.diagnostico}}</p>
+                <h5>Anamnesis</h5>
+                <p>{{atenciones.anamnesis}}</p>
+            </div>  
+            <div class="col-2">
+                <h5>Medicamentos</h5>
+                <p>{% for medicamento in atenciones.medicamento.all %}
+                    {{ medicamento.nombreMedicamento }}
+               {% endfor %}</p>
+                <h5>Examenes</h5>
+                <p>{% for examenes in atenciones.examenes.all %}
+                    {{ examenes.nombreExamen }}
+                    {% endfor %}</p>
+            </div>  
+            <div class="col-2 ">
+                <br>
+                <a class="btn btn-primary" href="{% url 'editar' atenciones.idAtencion %}" >Editar</a>
+                <br>
+                <br>
+                <a class="btn btn-danger" href="{% url 'eliminar' atenciones.idAtencion %}" >Eliminar</a>
+            </div>
+            <hr>
+        <div>
+           
+         {% endfor %}
+{% endblock %}
